@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#000" />
+	<link rel="manifest" href="manifest.json" />
+	<title>hello world</title>
+</head>
+<body>
+	<h1>Hello World</h1>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyCKLn5apWE8-vwbUJhBuIrE4QH8kPTpzTw",
+			authDomain: "pwa-hello-world-44e73.firebaseapp.com",
+			databaseURL: "https://pwa-hello-world-44e73.firebaseio.com",
+			projectId: "pwa-hello-world-44e73",
+			storageBucket: "pwa-hello-world-44e73.appspot.com",
+			messagingSenderId: "230950018536",
+		};
+		firebase.initializeApp(config);
+	</script>
+
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('/sw.js')
+				.then(function () {
+					console.log('service worker registered.')
+				})
+		}
+	</script>
+
+	<script>
+		const messaging = firebase.messaging()
+
+		messaging.requestPermission()
+			.then(() =>{
+				return messaging.getToken()
+			})
+			.then((token) => {
+				console.log(token)
+			})
+			.catch((err) => {
+				console.error(err)
+			})
+	</script>
+</body>
+</html>
